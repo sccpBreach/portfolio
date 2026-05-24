@@ -2,8 +2,15 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiMenu, HiX, HiSun, HiMoon, HiCog } from "react-icons/hi";
-import { navLinks } from "@/data/navigation";
+import {
+  HiMenu,
+  HiX,
+  HiSun,
+  HiMoon,
+  HiCog,
+  HiChevronDown,
+  HiDocumentDownload,
+} from "react-icons/hi";
 import { useTheme, type Theme } from "@/lib/theme";
 
 const themeIcons: Record<string, React.ReactNode> = {
@@ -12,6 +19,178 @@ const themeIcons: Record<string, React.ReactNode> = {
   retro: <HiCog size={20} />,
 };
 
+interface DropdownItem {
+  label: string;
+  href: string;
+}
+
+interface NavItem {
+  label: string;
+  href?: string;
+  dropdown?: DropdownItem[];
+}
+
+const navItems: NavItem[] = [
+  { label: "Beranda", href: "#hero" },
+  {
+    label: "Tentang Saya",
+    dropdown: [
+      { label: "Profil", href: "#profil" },
+      { label: "Pendidikan", href: "#pendidikan" },
+      { label: "Skill", href: "#skills" },
+      { label: "Pengalaman", href: "#pengalaman" },
+    ],
+  },
+  {
+    label: "Karya",
+    dropdown: [
+      { label: "Semua Proyek", href: "#projects" },
+      { label: "Proyek AI", href: "#ai-workflow" },
+      { label: "Open Source", href: "#github" },
+    ],
+  },
+  {
+    label: "Lainnya",
+    dropdown: [
+      { label: "Testimoni", href: "#testimonial" },
+      { label: "GitHub", href: "#github" },
+      { label: "Kontak", href: "#contact" },
+    ],
+  },
+];
+
+function scrollTo(href: string) {
+  const el = document.querySelector(href);
+  el?.scrollIntoView({ behavior: "smooth" });
+}
+
+function DropdownDesktop({ item, activeSection }: { item: NavItem; activeSection: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1 text-sm text-muted hover:text-foreground transition-colors"
+      >
+        {item.label}
+        <HiChevronDown
+          className={`size-3 transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.15 }}
+            className="absolute top-full left-0 mt-2 w-44 bg-card border border-border rounded-lg shadow-lg py-1 z-50"
+          >
+            {item.dropdown!.map((d) => {
+              const isActive = activeSection === d.href.replace("#", "");
+              return (
+                <a
+                  key={d.href}
+                  href={d.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpen(false);
+                    scrollTo(d.href);
+                  }}
+                  className={`block px-4 py-2 text-sm transition-colors ${
+                    isActive
+                      ? "text-accent font-medium"
+                      : "text-muted hover:text-foreground hover:bg-bg"
+                  }`}
+                >
+                  {d.label}
+                </a>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function MobileAccordion({ item, activeSection, onClose }: { item: NavItem; activeSection: string; onClose: () => void }) {
+  const [open, setOpen] = useState(false);
+
+  if (!item.dropdown) {
+    return (
+      <a
+        href={item.href}
+        onClick={(e) => {
+          e.preventDefault();
+          onClose();
+          scrollTo(item.href!);
+        }}
+        className="text-2xl font-medium text-muted hover:text-foreground transition-colors"
+      >
+        {item.label}
+      </a>
+    );
+  }
+
+  return (
+    <div className="w-full max-w-xs">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center justify-center gap-2 text-2xl font-medium text-muted hover:text-foreground transition-colors w-full"
+      >
+        {item.label}
+        <HiChevronDown className={`size-5 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="flex flex-col items-center gap-4 pt-4 pb-2">
+              {item.dropdown.map((d) => {
+                const isActive = activeSection === d.href.replace("#", "");
+                return (
+                  <a
+                    key={d.href}
+                    href={d.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onClose();
+                      scrollTo(d.href);
+                    }}
+                    className={`text-lg transition-colors ${
+                      isActive
+                        ? "text-accent font-medium"
+                        : "text-muted hover:text-foreground"
+                    }`}
+                  >
+                    {d.label}
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -19,6 +198,8 @@ export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+
+  const close = () => setIsOpen(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -49,19 +230,11 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setIsOpen(false);
-    toggleRef.current?.focus();
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
-
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (!isOpen) return;
 
     if (e.key === "Escape") {
-      setIsOpen(false);
+      close();
       toggleRef.current?.focus();
       return;
     }
@@ -108,29 +281,49 @@ export default function Navbar() {
       }`}
     >
       <div className="container-section flex items-center justify-between h-16">
-        <a href="#hero" onClick={(e) => handleClick(e, "#hero")} className="text-xl font-bold tracking-tight text-accent">
+        <a
+          href="#hero"
+          onClick={(e) => {
+            e.preventDefault();
+            close();
+            scrollTo("#hero");
+          }}
+          className="text-xl font-bold tracking-tight text-accent"
+        >
           Fauzan.
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.href.replace("#", "");
-            return (
+          {navItems.map((item) =>
+            item.dropdown ? (
+              <DropdownDesktop key={item.label} item={item} activeSection={activeSection} />
+            ) : (
               <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleClick(e, link.href)}
-                aria-current={isActive ? "true" : undefined}
+                key={item.href}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo(item.href!);
+                }}
+                aria-current={activeSection === item.href!.replace("#", "") ? "true" : undefined}
                 className={`text-sm transition-colors ${
-                  isActive
+                  activeSection === item.href!.replace("#", "")
                     ? "text-accent font-medium"
                     : "text-muted hover:text-foreground"
                 }`}
               >
-                {link.label}
+                {item.label}
               </a>
-            );
-          })}
+            )
+          )}
+          <a
+            href="/cv.pdf"
+            download
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors"
+          >
+            <HiDocumentDownload className="size-4" />
+            Download CV
+          </a>
         </nav>
 
         <div className="flex items-center gap-1">
@@ -169,20 +362,29 @@ export default function Navbar() {
             className="md:hidden fixed inset-0 top-16 bg-bg z-40"
             onKeyDown={handleKeyDown}
           >
-            <nav className="flex flex-col items-center justify-center gap-8 h-full">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleClick(e, link.href)}
+            <nav className="flex flex-col items-center justify-center gap-6 h-full px-4">
+              {navItems.map((item, i) => (
+                <motion.div
+                  key={item.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="text-2xl font-medium text-muted hover:text-foreground transition-colors"
                 >
-                  {link.label}
-                </motion.a>
+                  <MobileAccordion item={item} activeSection={activeSection} onClose={close} />
+                </motion.div>
               ))}
+              <motion.a
+                href="/cv.pdf"
+                download
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navItems.length * 0.05 }}
+                onClick={close}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white text-base font-medium"
+              >
+                <HiDocumentDownload className="size-5" />
+                Download CV
+              </motion.a>
             </nav>
           </motion.div>
         )}
