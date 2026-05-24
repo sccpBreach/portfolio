@@ -47,7 +47,7 @@ export default function GitHubProjects() {
       .catch(() => setError(true));
   }, []);
 
-  if (error) return null;
+  if (error || repos.length === 0) return null;
 
   return (
     <section id="github" className="py-20 md:py-24 container-section">
