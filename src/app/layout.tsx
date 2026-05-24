@@ -6,6 +6,7 @@ import Navbar from "@/sections/Navbar";
 import CodeRain from "@/components/CodeRain";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import ScrollProgress from "@/components/ScrollProgress";
 import "./globals.css";
 
 const inter = Inter({
@@ -106,7 +107,8 @@ export default function RootLayout({
       data-theme="dark"
       className={`${inter.variable} ${jetbrainsMono.variable} ${orbitron.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-dvh flex flex-col bg-bg text-foreground">
+       <body className="min-h-dvh flex flex-col bg-bg text-foreground">
+          <ScrollProgress />
         <Script
           id="theme-init"
           strategy="beforeInteractive"
