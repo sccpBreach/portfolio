@@ -18,6 +18,7 @@ const navGroups = [
   {
     title: "Karya",
     links: [
+      { label: "Proyek", href: "#projects" },
       { label: "Alur AI", href: "#ai-workflow" },
       { label: "GitHub", href: "#github" },
     ],
