@@ -93,7 +93,7 @@ function DropdownDesktop({ item, activeSection }: { item: NavItem; activeSection
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 mt-2 w-44 bg-card border border-border rounded-lg shadow-lg py-1 z-50"
+            className="absolute top-full left-0 mt-2 w-44 bg-card border border-border rounded-lg shadow-lg py-1 z-[60]"
           >
             {item.dropdown!.map((d) => {
               const isActive = activeSection === d.href.replace("#", "");
@@ -273,7 +273,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${
         scrolled
           ? "bg-bg/80 backdrop-blur-md border-b border-border"
           : "bg-transparent"
@@ -358,7 +358,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden fixed inset-0 bg-black/50 z-40"
+              className="md:hidden fixed inset-0 bg-black/50 z-[65]"
               onClick={close}
             />
             <motion.div
@@ -367,7 +367,7 @@ export default function Navbar() {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-bg border-t border-border rounded-t-2xl max-h-[85dvh] overflow-y-auto"
+              className="md:hidden fixed bottom-0 left-0 right-0 z-[70] bg-bg border-t border-border rounded-t-2xl max-h-[85dvh] overflow-y-auto"
               onKeyDown={handleKeyDown}
             >
               <div className="w-10 h-1 rounded-full bg-muted mx-auto mt-3 mb-2" />
