@@ -23,6 +23,8 @@ export default function Hero() {
       className="relative min-h-dvh flex items-center container-section pt-24 md:pt-32 overflow-hidden"
     >
       <div className="hero-gradient" aria-hidden="true" />
+      <div className="hero-grid-bg absolute inset-0 pointer-events-none" aria-hidden="true" />
+
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -30,12 +32,15 @@ export default function Hero() {
         className="relative grid md:grid-cols-12 gap-8 w-full items-center z-10"
       >
         <div className="md:col-span-7 space-y-6">
-          <motion.p
-            variants={itemVariants}
-            className="text-accent font-mono text-sm sm:text-base"
-          >
-            Saya bantu tim & startup membangun produk digital lebih cepat dengan AI
-          </motion.p>
+          <motion.div variants={itemVariants} className="flex items-center gap-2">
+            <span className="relative flex size-2">
+              <span className="animate-ping absolute inline-flex size-full rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-green-500" />
+            </span>
+            <span className="text-xs font-mono text-muted tracking-wide uppercase">
+              Available for work
+            </span>
+          </motion.div>
 
           <motion.h1
             variants={itemVariants}
