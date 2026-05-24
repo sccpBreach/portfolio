@@ -78,21 +78,21 @@ function DropdownDesktop({ item, activeSection }: { item: NavItem; activeSection
     <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 text-sm text-muted hover:text-foreground transition-colors"
+        className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-muted hover:text-foreground transition-colors rounded-md hover:bg-accent/5"
       >
         {item.label}
-        <HiChevronDown
-          className={`size-3 transition-transform ${open ? "rotate-180" : ""}`}
-        />
+        <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
+          <HiChevronDown className="size-3" />
+        </motion.div>
       </button>
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 mt-2 w-44 bg-card border border-border rounded-lg shadow-lg py-1 z-[60]"
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-44 bg-card border border-border/50 rounded-xl shadow-xl shadow-black/10 py-1.5 z-[60] backdrop-blur-xl"
           >
             {item.dropdown!.map((d) => {
               const isActive = activeSection === d.href.replace("#", "");
@@ -105,10 +105,10 @@ function DropdownDesktop({ item, activeSection }: { item: NavItem; activeSection
                     setOpen(false);
                     scrollTo(d.href);
                   }}
-                  className={`block px-4 py-2 text-sm transition-colors ${
+                  className={`block px-4 py-2 mx-1.5 rounded-lg text-sm transition-all ${
                     isActive
-                      ? "text-accent font-medium"
-                      : "text-muted hover:text-foreground hover:bg-bg"
+                      ? "text-accent font-semibold bg-accent/10"
+                      : "text-muted hover:text-foreground hover:bg-accent/5"
                   }`}
                 >
                   {d.label}
@@ -134,7 +134,7 @@ function MobileAccordion({ item, activeSection, onClose }: { item: NavItem; acti
           onClose();
           scrollTo(item.href!);
         }}
-        className="text-2xl font-medium text-muted hover:text-foreground transition-colors"
+        className="text-xl font-medium text-foreground hover:text-accent transition-colors"
       >
         {item.label}
       </a>
@@ -142,13 +142,15 @@ function MobileAccordion({ item, activeSection, onClose }: { item: NavItem; acti
   }
 
   return (
-    <div className="w-full max-w-xs">
+    <div className="w-full max-w-xs text-center">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-center gap-2 text-2xl font-medium text-muted hover:text-foreground transition-colors w-full"
+        className="flex items-center justify-center gap-2 text-xl font-medium text-foreground hover:text-accent transition-colors w-full"
       >
         {item.label}
-        <HiChevronDown className={`size-5 transition-transform ${open ? "rotate-180" : ""}`} />
+        <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
+          <HiChevronDown className="size-4" />
+        </motion.div>
       </button>
       <AnimatePresence>
         {open && (
@@ -159,7 +161,7 @@ function MobileAccordion({ item, activeSection, onClose }: { item: NavItem; acti
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="flex flex-col items-center gap-4 pt-4 pb-2">
+            <div className="flex flex-col items-center gap-3 pt-4 pb-1">
               {item.dropdown.map((d) => {
                 const isActive = activeSection === d.href.replace("#", "");
                 return (
@@ -171,9 +173,9 @@ function MobileAccordion({ item, activeSection, onClose }: { item: NavItem; acti
                       onClose();
                       scrollTo(d.href);
                     }}
-                    className={`text-lg transition-colors ${
+                    className={`text-base transition-colors ${
                       isActive
-                        ? "text-accent font-medium"
+                        ? "text-accent font-semibold"
                         : "text-muted hover:text-foreground"
                     }`}
                   >
@@ -272,9 +274,9 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${
         scrolled
-          ? "bg-bg/80 backdrop-blur-md border-b border-border"
+          ? "bg-bg/70 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-black/5"
           : "bg-transparent"
       }`}
     >
@@ -286,12 +288,12 @@ export default function Navbar() {
             close();
             scrollTo("#hero");
           }}
-          className="text-xl font-bold tracking-tight text-accent"
+          className="text-xl font-bold tracking-tight text-accent hover:opacity-80 transition-opacity"
         >
           Fauzan.
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) =>
             item.dropdown ? (
               <DropdownDesktop key={item.label} item={item} activeSection={activeSection} />
@@ -304,34 +306,35 @@ export default function Navbar() {
                   scrollTo(item.href!);
                 }}
                 aria-current={activeSection === item.href!.replace("#", "") ? "true" : undefined}
-                className={`text-sm transition-colors ${
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
                   activeSection === item.href!.replace("#", "")
-                    ? "text-accent font-medium"
-                    : "text-muted hover:text-foreground"
+                    ? "text-accent bg-accent/10"
+                    : "text-muted hover:text-foreground hover:bg-accent/5"
                 }`}
               >
                 {item.label}
               </a>
             )
           )}
+        </nav>
+
+        <div className="flex items-center gap-2">
           <a
             href="/cv.pdf"
             download
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors"
+            className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/25 transition-all"
           >
             <HiDocumentDownload className="size-4" />
             Download CV
           </a>
-        </nav>
 
-        <div className="flex items-center gap-1">
           <button
             onClick={() => {
               const themes = ["dark", "light", "retro"] as const;
               const next = themes[(themes.indexOf(theme) + 1) % themes.length];
               setTheme(next);
             }}
-            className="text-muted hover:text-foreground p-2 rounded-lg hover:bg-card transition-colors"
+            className="text-muted hover:text-foreground p-2 rounded-lg hover:bg-accent/10 transition-all"
             aria-label={`Tema: ${theme}. Klik ganti`}
           >
             {themeIcons[theme]}
@@ -340,11 +343,11 @@ export default function Navbar() {
           <button
             ref={toggleRef}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-foreground p-2"
+            className="md:hidden text-foreground p-2 hover:bg-accent/10 rounded-lg transition-all"
             aria-label="Toggle menu"
             aria-expanded={isOpen}
           >
-            {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+            {isOpen ? <HiX size={22} /> : <HiMenu size={22} />}
           </button>
         </div>
       </div>
@@ -365,18 +368,18 @@ export default function Navbar() {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden fixed bottom-0 left-0 right-0 z-[70] bg-bg border-t border-border rounded-t-2xl max-h-[85dvh] overflow-y-auto"
+              transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
+              className="md:hidden fixed bottom-0 left-0 right-0 z-[70] bg-bg/95 backdrop-blur-xl border-t border-border/50 rounded-t-3xl max-h-[85dvh] overflow-y-auto"
               onKeyDown={handleKeyDown}
             >
-              <div className="w-10 h-1 rounded-full bg-muted mx-auto mt-3 mb-2" />
-              <nav className="flex flex-col items-center gap-5 py-6 px-4">
+              <div className="w-10 h-1 rounded-full bg-muted/50 mx-auto mt-3 mb-1" />
+              <nav className="flex flex-col items-center gap-5 py-8 px-4">
                 {navItems.map((item, i) => (
                   <motion.div
                     key={item.label}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
+                    transition={{ delay: i * 0.06, ease: "easeOut" }}
                   >
                     <MobileAccordion item={item} activeSection={activeSection} onClose={close} />
                   </motion.div>
@@ -384,11 +387,11 @@ export default function Navbar() {
                 <motion.a
                   href="/cv.pdf"
                   download
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navItems.length * 0.05 }}
+                  transition={{ delay: navItems.length * 0.06 }}
                   onClick={close}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white text-base font-medium"
+                  className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-accent text-white text-base font-medium hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/25 transition-all"
                 >
                   <HiDocumentDownload className="size-5" />
                   Download CV
