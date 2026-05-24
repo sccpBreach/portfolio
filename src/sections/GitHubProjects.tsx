@@ -34,11 +34,11 @@ const languageColors: Record<string, string> = {
 };
 
 export default function GitHubProjects() {
-  const [repos, setRepos] = useState<Repo[]>([]);
+  const [repos, setRepos] = useState<Repo[] | null>(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch("https://api.github.com/users/sccpBreach/repos?sort=updated&per_page=6")
+    fetch("/api/github")
       .then((res) => {
         if (!res.ok) throw new Error("Gagal fetch");
         return res.json();
@@ -47,7 +47,8 @@ export default function GitHubProjects() {
       .catch(() => setError(true));
   }, []);
 
-  if (error || repos.length === 0) return null;
+  if (error || repos === null) return null;
+  if (repos.length === 0) return null;
 
   return (
     <section id="github" className="py-20 md:py-24 container-section">
