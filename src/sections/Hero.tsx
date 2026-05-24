@@ -69,7 +69,7 @@ export default function Hero() {
             className="flex flex-wrap gap-4 pt-2"
           >
             <a
-              href="#projects"
+              href="#github"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white font-medium text-sm hover:bg-accent/90 transition-colors"
             >
               <HiArrowDown className="size-4" />
