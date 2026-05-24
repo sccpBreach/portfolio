@@ -3,7 +3,6 @@ import About from "@/sections/About";
 import Skills from "@/sections/Skills";
 import Experience from "@/sections/Experience";
 import Education from "@/sections/Education";
-import Projects from "@/sections/Projects";
 import Testimonials from "@/sections/Testimonials";
 import AiWorkflow from "@/sections/AiWorkflow";
 import GitHubProjects from "@/sections/GitHubProjects";
@@ -22,8 +21,6 @@ export default function Home() {
       <Experience />
       <SectionDivider />
       <Education />
-      <SectionDivider />
-      <Projects />
       <SectionDivider />
       <Testimonials />
       <SectionDivider />

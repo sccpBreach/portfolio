@@ -44,7 +44,6 @@ const navItems: NavItem[] = [
   {
     label: "Karya",
     dropdown: [
-      { label: "Proyek", href: "#projects" },
       { label: "Alur AI", href: "#ai-workflow" },
       { label: "GitHub", href: "#github" },
     ],
