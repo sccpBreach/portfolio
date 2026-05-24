@@ -352,40 +352,51 @@ export default function Navbar() {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            ref={menuRef}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 top-16 bg-bg z-40"
-            onKeyDown={handleKeyDown}
-          >
-            <nav className="flex flex-col items-center justify-center gap-6 h-full px-4">
-              {navItems.map((item, i) => (
-                <motion.div
-                  key={item.label}
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden fixed inset-0 bg-black/50 z-40"
+              onClick={close}
+            />
+            <motion.div
+              ref={menuRef}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-bg border-t border-border rounded-t-2xl max-h-[85dvh] overflow-y-auto"
+              onKeyDown={handleKeyDown}
+            >
+              <div className="w-10 h-1 rounded-full bg-muted mx-auto mt-3 mb-2" />
+              <nav className="flex flex-col items-center gap-5 py-6 px-4">
+                {navItems.map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <MobileAccordion item={item} activeSection={activeSection} onClose={close} />
+                  </motion.div>
+                ))}
+                <motion.a
+                  href="/cv.pdf"
+                  download
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: navItems.length * 0.05 }}
+                  onClick={close}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white text-base font-medium"
                 >
-                  <MobileAccordion item={item} activeSection={activeSection} onClose={close} />
-                </motion.div>
-              ))}
-              <motion.a
-                href="/cv.pdf"
-                download
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navItems.length * 0.05 }}
-                onClick={close}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white text-base font-medium"
-              >
-                <HiDocumentDownload className="size-5" />
-                Download CV
-              </motion.a>
-            </nav>
-          </motion.div>
+                  <HiDocumentDownload className="size-5" />
+                  Download CV
+                </motion.a>
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>
