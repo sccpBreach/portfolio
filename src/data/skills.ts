@@ -1,6 +1,7 @@
 export interface Skill {
   name: string;
   icon: string;
+  level: number;
 }
 
 export interface SkillCategory {
@@ -8,48 +9,47 @@ export interface SkillCategory {
   skills: Skill[];
 }
 
-// Icon key mapping — di-resolve di komponen Skills
 export const skillCategories: SkillCategory[] = [
   {
     label: "Frontend",
     skills: [
-      { name: "React", icon: "SiReact" },
-      { name: "Next.js", icon: "SiNextdotjs" },
-      { name: "TypeScript", icon: "SiTypescript" },
-      { name: "Tailwind CSS", icon: "SiTailwindcss" },
-      { name: "HTML & CSS", icon: "SiHtml5" },
+      { name: "React", icon: "SiReact", level: 90 },
+      { name: "Next.js", icon: "SiNextdotjs", level: 85 },
+      { name: "TypeScript", icon: "SiTypescript", level: 85 },
+      { name: "Tailwind CSS", icon: "SiTailwindcss", level: 90 },
+      { name: "HTML & CSS", icon: "SiHtml5", level: 95 },
     ],
   },
   {
     label: "Backend",
     skills: [
-      { name: "Node.js", icon: "SiNodedotjs" },
-      { name: "Firebase", icon: "SiFirebase" },
-      { name: "REST API", icon: "SiPostman" },
+      { name: "Node.js", icon: "SiNodedotjs", level: 75 },
+      { name: "Firebase", icon: "SiFirebase", level: 80 },
+      { name: "REST API", icon: "SiPostman", level: 85 },
     ],
   },
   {
     label: "Database",
     skills: [
-      { name: "Firestore", icon: "SiFirebase" },
-      { name: "PostgreSQL", icon: "SiPostgresql" },
+      { name: "Firestore", icon: "SiFirebase", level: 80 },
+      { name: "PostgreSQL", icon: "SiPostgresql", level: 65 },
     ],
   },
   {
     label: "Tools",
     skills: [
-      { name: "Git", icon: "SiGit" },
-      { name: "VS Code", icon: "VscVscode" },
-      { name: "Figma", icon: "SiFigma" },
-      { name: "npm", icon: "SiNpm" },
+      { name: "Git", icon: "SiGit", level: 85 },
+      { name: "VS Code", icon: "VscVscode", level: 90 },
+      { name: "Figma", icon: "SiFigma", level: 70 },
+      { name: "npm", icon: "SiNpm", level: 80 },
     ],
   },
   {
     label: "AI Tools",
     skills: [
-      { name: "ChatGPT", icon: "SiOpenai" },
-      { name: "Claude", icon: "SiAnthropic" },
-      { name: "GitHub Copilot", icon: "SiGithub" },
+      { name: "ChatGPT", icon: "SiOpenai", level: 90 },
+      { name: "Claude", icon: "SiAnthropic", level: 95 },
+      { name: "GitHub Copilot", icon: "SiGithub", level: 85 },
     ],
   },
 ];
