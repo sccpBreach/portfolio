@@ -7,6 +7,7 @@ const MAX_PAYLOAD_SIZE = 10_000;
 const ALLOWED_ORIGINS = [
   "https://sccpbreachfolio.com",
   "https://www.sccpbreachfolio.com",
+  "https://portfolio-one-mauve-58.vercel.app",
   "http://localhost:3000",
 ];
 
