@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { HiArrowDown, HiDocumentDownload } from "react-icons/hi";
 import { siteConfig } from "@/data/site";
+import Typewriter from "@/components/Typewriter";
 
 const containerVariants = {
   hidden: {},
@@ -33,15 +34,14 @@ export default function Hero() {
             variants={itemVariants}
             className="text-accent font-mono text-sm sm:text-base"
           >
-            Hi, nama saya
+            Saya bantu tim & startup membangun produk digital lebih cepat dengan AI
           </motion.p>
 
           <motion.h1
             variants={itemVariants}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight font-robot"
           >
-            {siteConfig.name}
-            <span className="text-accent">.</span>
+            <Typewriter text={`${siteConfig.name}.`} speed={120} />
           </motion.h1>
 
           <motion.h2
@@ -68,7 +68,7 @@ export default function Hero() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white font-medium text-sm hover:bg-accent/90 transition-colors"
             >
               <HiArrowDown className="size-4" />
-              View Projects
+              Lihat Projek
             </a>
             <a
               href="/cv.pdf"

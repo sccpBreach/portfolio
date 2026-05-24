@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { HiExternalLink, HiCode, HiCheck } from "react-icons/hi";
@@ -18,6 +19,8 @@ const stagger = {
 const [featured, ...rest] = projects;
 
 export default function Projects() {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <section id="projects" className="py-20 md:py-24 container-section">
       <motion.div
@@ -28,7 +31,7 @@ export default function Projects() {
         className="space-y-16"
       >
         <motion.div variants={fadeUp}>
-          <p className="text-accent font-mono text-sm mb-2">Projects</p>
+          <p className="text-accent font-mono text-sm mb-2">Karya</p>
           <h2 className="text-2xl sm:text-3xl font-bold">Karya Terbaru</h2>
         </motion.div>
 
@@ -39,7 +42,7 @@ export default function Projects() {
         >
           {/* Screenshot */}
           <div className="relative aspect-video rounded-lg overflow-hidden bg-bg border border-border">
-            {featured.screenshot && (
+            {featured.screenshot && !imgError ? (
               <Image
                 src={featured.screenshot}
                 alt={`${featured.title} screenshot`}
@@ -47,7 +50,14 @@ export default function Projects() {
                 className="object-cover object-top"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 loading="lazy"
+                onError={() => setImgError(true)}
               />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center text-muted text-sm">
+                {featured.screenshot && imgError
+                  ? "Gambar tidak tersedia"
+                  : "Belum ada screenshot"}
+              </div>
             )}
           </div>
 
@@ -77,6 +87,16 @@ export default function Projects() {
                 </li>
               ))}
             </ul>
+
+            {/* Dampak / Hasil */}
+            {featured.results && (
+              <div className="p-4 rounded-lg bg-green-500/5 border border-green-500/20">
+                <p className="text-xs text-green-400 font-mono mb-1">Dampak</p>
+                <p className="text-sm text-green-300 font-medium">
+                  {featured.results}
+                </p>
+              </div>
+            )}
 
             {/* Problem Solved */}
             {featured.problemSolved && (

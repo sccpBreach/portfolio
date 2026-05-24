@@ -62,7 +62,7 @@ export default function Skills() {
         className="space-y-12"
       >
         <motion.div variants={fadeUp}>
-          <p className="text-accent font-mono text-sm mb-2">Skills</p>
+          <p className="text-accent font-mono text-sm mb-2">Keahlian</p>
           <h2 className="text-2xl sm:text-3xl font-bold">Tech Stack</h2>
         </motion.div>
 

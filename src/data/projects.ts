@@ -4,6 +4,7 @@ export interface Project {
   tags: string[];
   features: string[];
   problemSolved?: string;
+  results?: string;
   screenshot?: string;
   liveUrl?: string;
   repoUrl?: string;
@@ -25,9 +26,11 @@ export const projects: Project[] = [
     ],
     problemSolved:
       "Membantu pemilik UMKM memantau pesanan dan stok secara real-time tanpa perlu spreadsheet manual.",
-    screenshot: `${baseScreenshot}/ecommerce.svg`,
+    // [kamu] Ganti dengan hasil terukur dari project ini
+    results: "Hemat 10+ jam/minggu dari ngurus stok manual",
+    screenshot: `${baseScreenshot}/ecommerce.svg`, // [kamu] Ganti screenshot asli di public/screenshots/
     liveUrl: "https://fauzan-ecommerce.vercel.app",
-    repoUrl: "https://github.com/fauzan/ecommerce-dashboard",
+    repoUrl: "https://github.com/sccpBreach/ecommerce-dashboard",
   },
   {
     title: "Portfolio Website",
@@ -38,8 +41,8 @@ export const projects: Project[] = [
       "Sticky navbar dengan backdrop blur",
       "Fully responsive, mobile-first",
     ],
-    liveUrl: "https://fauzan.dev",
-    repoUrl: "https://github.com/fauzan/portfolio",
+    liveUrl: "https://sccpBreachFolio.com",
+    repoUrl: "https://github.com/sccpBreach/portfolio",
   },
   {
     title: "Weather App",
@@ -51,6 +54,6 @@ export const projects: Project[] = [
       "Search kota manual",
     ],
     liveUrl: "https://fauzan-weather.vercel.app",
-    repoUrl: "https://github.com/fauzan/weather-app",
+    repoUrl: "https://github.com/sccpBreach/weather-app",
   },
 ];

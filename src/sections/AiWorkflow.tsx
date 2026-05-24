@@ -52,9 +52,9 @@ export default function AiWorkflow() {
       >
         {/* Header */}
         <motion.div variants={fadeUp}>
-          <p className="text-accent font-mono text-sm mb-2">AI Workflow</p>
+          <p className="text-accent font-mono text-sm mb-2">Alur AI</p>
           <h2 className="text-2xl sm:text-3xl font-bold mb-3">
-            How I Use AI in Development
+            Cara Saya Menggunakan AI dalam Development
           </h2>
           <p className="text-muted max-w-2xl text-sm sm:text-base">
             AI membantu saya bekerja lebih cepat dan fokus pada logika & arsitektur.
@@ -89,7 +89,7 @@ export default function AiWorkflow() {
                     {step.label}
                   </motion.span>
                   {i < workflowSteps.length - 1 && (
-                    <div className="w-px h-4 bg-border ml-[17px] hidden" />
+                    <div className="w-px h-4 bg-border ml-[17px]" />
                   )}
                 </div>
               );
@@ -162,7 +162,7 @@ export default function AiWorkflow() {
 
         {/* Tools Used */}
         <motion.div variants={fadeUp} className="text-center space-y-4">
-          <p className="text-sm text-muted">AI tools yang saya gunakan sehari-hari:</p>
+          <p className="text-sm text-muted">Alat AI yang saya gunakan sehari-hari:</p>
           <div className="flex flex-wrap justify-center gap-3">
             {toolsUsed.map((tool) => (
                 <span

@@ -11,11 +11,11 @@ export interface UseCase {
 }
 
 export const workflowSteps: WorkflowStep[] = [
-  { label: "Idea", icon: "HiLightBulb" },
-  { label: "Brainstorm", icon: "HiChat" },
-  { label: "Dev", icon: "HiCode" },
+  { label: "Ide", icon: "HiLightBulb" },
+  { label: "Riset", icon: "HiChat" },
+  { label: "Koding", icon: "HiCode" },
   { label: "Review", icon: "HiEye" },
-  { label: "Test", icon: "HiBeaker" },
+  { label: "Uji", icon: "HiBeaker" },
   { label: "Deploy", icon: "HiRocketLaunch" },
 ];
 

@@ -1,9 +1,13 @@
 import Hero from "@/sections/Hero";
 import About from "@/sections/About";
 import Skills from "@/sections/Skills";
+import Experience from "@/sections/Experience";
+import Education from "@/sections/Education";
 import Projects from "@/sections/Projects";
+import Testimonials from "@/sections/Testimonials";
 import AiWorkflow from "@/sections/AiWorkflow";
-import Container from "@/components/Container";
+import GitHubProjects from "@/sections/GitHubProjects";
+import Contact from "@/sections/Contact";
 import SectionDivider from "@/components/SectionDivider";
 
 export default function Home() {
@@ -15,14 +19,19 @@ export default function Home() {
       <SectionDivider />
       <Skills />
       <SectionDivider />
+      <Experience />
+      <SectionDivider />
+      <Education />
+      <SectionDivider />
       <Projects />
       <SectionDivider />
+      <Testimonials />
+      <SectionDivider />
       <AiWorkflow />
-
-      <Container id="contact" className="py-20 md:py-24">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8">Contact</h2>
-        <p className="text-muted">Coming soon...</p>
-      </Container>
+      <SectionDivider />
+      <GitHubProjects />
+      <SectionDivider />
+      <Contact />
     </>
   );
 }
