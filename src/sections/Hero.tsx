@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { HiArrowDown, HiDocumentDownload } from "react-icons/hi";
+import { HiArrowDown } from "react-icons/hi";
 import { siteConfig } from "@/data/site";
 import Typewriter from "@/components/Typewriter";
 
@@ -74,14 +74,6 @@ export default function Hero() {
             >
               <HiArrowDown className="size-4" />
               Lihat Projek
-            </a>
-            <a
-              href="/cv.pdf"
-              download
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-medium text-sm hover:bg-card transition-colors"
-            >
-              <HiDocumentDownload className="size-4" />
-              Download CV
             </a>
           </motion.div>
         </div>

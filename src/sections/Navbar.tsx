@@ -9,7 +9,6 @@ import {
   HiMoon,
   HiCog,
   HiChevronDown,
-  HiDocumentDownload,
 } from "react-icons/hi";
 import { useTheme, type Theme } from "@/lib/theme";
 
@@ -319,15 +318,6 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href="/cv.pdf"
-            download
-            className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/25 transition-all"
-          >
-            <HiDocumentDownload className="size-4" />
-            Download CV
-          </a>
-
           <button
             onClick={() => {
               const themes = ["dark", "light", "retro"] as const;
@@ -384,18 +374,6 @@ export default function Navbar() {
                     <MobileAccordion item={item} activeSection={activeSection} onClose={close} />
                   </motion.div>
                 ))}
-                <motion.a
-                  href="/cv.pdf"
-                  download
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navItems.length * 0.06 }}
-                  onClick={close}
-                  className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-accent text-white text-base font-medium hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/25 transition-all"
-                >
-                  <HiDocumentDownload className="size-5" />
-                  Download CV
-                </motion.a>
               </nav>
             </motion.div>
           </>
