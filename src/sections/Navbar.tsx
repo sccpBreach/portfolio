@@ -36,24 +36,23 @@ const navItems: NavItem[] = [
     label: "Tentang Saya",
     dropdown: [
       { label: "Profil", href: "#profil" },
-      { label: "Pendidikan", href: "#pendidikan" },
       { label: "Skill", href: "#skills" },
+      { label: "Pendidikan", href: "#pendidikan" },
       { label: "Pengalaman", href: "#pengalaman" },
     ],
   },
   {
     label: "Karya",
     dropdown: [
-      { label: "Semua Proyek", href: "#projects" },
-      { label: "Proyek AI", href: "#ai-workflow" },
-      { label: "Open Source", href: "#github" },
+      { label: "Proyek", href: "#projects" },
+      { label: "Alur AI", href: "#ai-workflow" },
+      { label: "GitHub", href: "#github" },
     ],
   },
   {
     label: "Lainnya",
     dropdown: [
       { label: "Testimoni", href: "#testimonial" },
-      { label: "GitHub", href: "#github" },
       { label: "Kontak", href: "#contact" },
     ],
   },
