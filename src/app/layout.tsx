@@ -25,7 +25,9 @@ const orbitron = Orbitron({
   weight: ["400", "700"],
 });
 
-const baseUrl = "https://sccpBreachFolio.com";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+  ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
