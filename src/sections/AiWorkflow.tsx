@@ -64,64 +64,36 @@ export default function AiWorkflow() {
 
         {/* Animated Workflow Pipeline */}
         <motion.div variants={fadeUp} className="w-full">
-          {/* Mobile: vertical pipeline */}
-          <div className="flex flex-col gap-3 sm:hidden">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-2">
             {workflowSteps.map((step, i) => {
               const Icon = iconMap[step.icon];
               return (
-                <div key={step.label} className="flex items-center gap-4">
+                <div key={step.label} className="flex sm:flex-col items-center gap-3 sm:gap-1.5 flex-1 min-w-0 w-full sm:w-auto">
                   <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, type: "spring", stiffness: 200 }}
-                    className="size-9 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center shrink-0"
+                    className="size-9 sm:size-12 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center shrink-0"
                   >
-                    {Icon && <Icon className="size-4 text-accent" />}
+                    {Icon && <Icon className="size-4 sm:size-6 text-accent" />}
                   </motion.div>
                   <motion.span
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 + 0.15, duration: 0.3 }}
-                    className="text-sm text-foreground font-mono"
+                    className="text-sm sm:text-xs text-foreground sm:text-muted font-mono"
                   >
                     {step.label}
                   </motion.span>
-                  {i < workflowSteps.length - 1 && (
-                    <div className="w-px h-4 bg-border ml-[17px]" />
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          {/* Tablet+: horizontal pipeline */}
-          <div className="hidden sm:flex items-center justify-between gap-2">
-            {workflowSteps.map((step, i) => {
-              const Icon = iconMap[step.icon];
-              return (
-                <div key={step.label} className="flex items-center gap-2 flex-1">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.15, type: "spring", stiffness: 200 }}
-                    className="flex flex-col items-center gap-1.5 min-w-0"
-                  >
-                    <div className="size-10 sm:size-12 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center transition-colors">
-                      {Icon && <Icon className="size-5 sm:size-6 text-accent" />}
-                    </div>
-                    <span className="text-[10px] sm:text-xs text-muted font-mono truncate max-w-full">
-                      {step.label}
-                    </span>
-                  </motion.div>
                   {i < workflowSteps.length - 1 && (
                     <motion.div
                       initial={{ scaleX: 0 }}
                       whileInView={{ scaleX: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: i * 0.15 + 0.3, duration: 0.4, ease: "easeOut" }}
-                      className="h-px flex-1 bg-gradient-to-r from-accent/50 to-border origin-left"
+                      transition={{ delay: i * 0.1 + 0.3, duration: 0.4, ease: "easeOut" }}
+                      className="h-px sm:h-px w-full sm:w-auto sm:flex-1 bg-gradient-to-r from-accent/50 to-border origin-left hidden sm:block"
                     />
                   )}
                 </div>
